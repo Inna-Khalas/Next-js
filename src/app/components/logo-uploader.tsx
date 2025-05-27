@@ -1,45 +1,78 @@
 'use client';
 
-import Image from 'next/image';
-import React from 'react';
+import React, { useRef, useState } from 'react';
+// import Image from 'next/image';
+import { FiUploadCloud } from 'react-icons/fi';
 
 export interface LogoUploaderProps
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'type'> {
   label?: string;
   placeholder?: string;
+  variant?: 'circle' | 'square';
 }
 
 const LogoUploader = ({
   label,
+  placeholder = 'Upload photo',
   id,
-  placeholder,
+  variant = 'square',
   ...props
 }: LogoUploaderProps) => {
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setPreviewUrl(reader.result as string);
+    };
+    reader.readAsDataURL(file);
+  };
+
+  const handleClick = () => {
+    fileInputRef.current?.click();
+  };
+
+  const isCircle = variant === 'circle';
+
   return (
-    <div className="flex gap-10 mb-3">
-      {label && <p className="text-base color-gray-900">{label}</p>}
-      <label
-        htmlFor={id}
-        className="flex flex-col items-center justify-center w-40 h-40 bg-white border border-slate-900 border-dashed rounded-full cursor-pointer"
+    <div className="flex flex-col gap-2">
+      {label && <p className="text-base text-gray-900">{label}</p>}
+
+      <div
+        onClick={handleClick}
+        className={`flex flex-col items-center justify-center cursor-pointer overflow-hidden border border-dashed border-slate-900
+          ${isCircle ? 'w-40 h-40 rounded-full' : 'w-full h-48 rounded-xl'}
+          bg-white hover:bg-gray-50 transition`}
       >
-        <Image
-          className="mb-1"
-          width={48}
-          height={48}
-          src="/upload-icon.png"
-          alt="upload"
-        />
-        {placeholder && (
-          <p className="text-base text-gray-500">{placeholder}</p>
+        {previewUrl ? (
+          <img
+            src={previewUrl}
+            alt="Uploaded"
+            className={`object-cover ${
+              isCircle ? 'w-40 h-40 rounded-full' : 'w-full h-48 rounded-xl'
+            }`}
+          />
+        ) : (
+          <div className="flex flex-col items-center text-gray-500">
+            <FiUploadCloud className="text-3xl mb-2" />
+            <p className="text-sm text-center px-2">{placeholder}</p>
+          </div>
         )}
+
         <input
           {...props}
+          ref={fileInputRef}
           id={id}
           type="file"
           accept="image/*"
+          onChange={handleFileChange}
           className="hidden"
         />
-      </label>
+      </div>
     </div>
   );
 };
