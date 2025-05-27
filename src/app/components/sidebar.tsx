@@ -29,7 +29,7 @@ export default function Sidebar({}: SidebarProps) {
           <SidebarItem
             current={pathname === '/dashboard'}
             pathname="/dashboard"
-            src="/icons/squares.svg"
+            src="/icons/dashboard.svg"
             alt="dashboard icon"
           >
             Dashboard
@@ -37,7 +37,7 @@ export default function Sidebar({}: SidebarProps) {
           <SidebarItem
             current={pathname === '/companies'}
             pathname="/companies"
-            src="/icons/briefcase.svg"
+            src="/icons/companies.svg"
             alt="companies icon"
           >
             Companies
@@ -47,12 +47,7 @@ export default function Sidebar({}: SidebarProps) {
           className="flex items-center gap-2 p-6 mt-auto mx-auto"
           onClick={handleExitClick}
         >
-          <Image
-            width={18}
-            height={18}
-            src="/icons/arrow-left-on-rectangle.svg"
-            alt="exit icon"
-          />
+          <Image width={18} height={18} src="icons/exit.svg" alt="exit icon" />
           <span className="font-medium text-white">Exit</span>
         </button>
       </div>
