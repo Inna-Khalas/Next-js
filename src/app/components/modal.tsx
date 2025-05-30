@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import {
   Dialog,
   DialogPanel,
@@ -29,10 +29,10 @@ export default function Modal({ show, children, onClose }: ModalProps) {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <div className="fixed inset-0 bg-gray-500 transition-opacity bg-opacity-75" />
+            <div className="fixed inset-0 bg-gray-50 transition-opacity  bg-opacity-60" />
           </TransitionChild>
 
-          <DialogPanel className="relative w-full max-w-3xl transform overflow-hidden rounded-2xl bg-gray-100 shadow-xl  transition-all p-6 sm:p-10">
+          <DialogPanel className="relative  transform overflow-hidden rounded-2xl bg-gray-100 shadow-xl  transition-all p-6 sm:p-10">
             {children}
           </DialogPanel>
         </div>

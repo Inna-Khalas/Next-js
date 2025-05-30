@@ -46,11 +46,15 @@ export default function CompanyForm({ onSubmit }: CompanyFormProps) {
       initialValues={initialValues}
       onSubmit={(values) => onSubmit({ ...values, date: date.toISOString() })}
     >
-      <Form className="flex flex-col gap-10 sm:px-10 padding-28">
+      <Form className="flex flex-col gap-10 rounded-xl w-[700px] h-[574px] shadow-lg bg-white sm:px-10 padding-28">
         <h2 className="text-2xl font-semibold">Add new company</h2>
         <div className="flex gap-6">
           <div className="flex flex-col flex-1 gap-5">
-            <LogoUploader label="Logo" placeholder="Upload photo" />
+            <LogoUploader
+              label="Logo"
+              placeholder="Upload photo"
+              variant="circle"
+            />
             <InputField label="Status" placeholder="Status" name="status" />
             <InputField label="Country" placeholder="Country" name="country" />
           </div>
